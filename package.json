@@ -14,5 +14,8 @@
   "license": "ISC",
   "devDependencies": {
     "evm-asm": "github:yarrumretep/evm-asm"
+  },
+  "dependencies": {
+    "expect": "^22.1.0"
   }
 }
