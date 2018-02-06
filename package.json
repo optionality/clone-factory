@@ -1,0 +1,18 @@
+{
+  "name": "clone-factory",
+  "version": "1.0.0",
+  "description": "",
+  "main": "init.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate": "node ./scripts/generate.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "evm-asm": "github:yarrumretep/evm-asm"
+  }
+}
