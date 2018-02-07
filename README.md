@@ -38,3 +38,7 @@ contract ThingFactory is Ownable, CloneFactory {
 ```
 
 This will inexpensively create a mimimalist forwarding shim contract that will delegate all calls to the contract libraryAddress
+
+
+## License
+Code released under the [MIT License](https://github.com/yarrumretep/clone-contract/blob/master/LICENSE).
