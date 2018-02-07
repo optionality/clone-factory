@@ -13,9 +13,8 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "evm-asm": "github:yarrumretep/evm-asm",
+    "@optionality.io/evm-asm": "^0.1.0",
     "expect": "^22.1.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
