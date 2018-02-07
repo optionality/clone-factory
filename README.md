@@ -40,4 +40,4 @@ This will inexpensively create a mimimalist forwarding shim contract that will d
 
 
 ## License
-Code released under the [MIT License](https://github.com/yarrumretep/clone-contract/blob/master/LICENSE).
+Code released under the [MIT License](https://github.com/yarrumretep/clone-factory/blob/master/LICENSE).
