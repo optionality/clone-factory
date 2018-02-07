@@ -1,6 +1,6 @@
 {
   "name": "@optionality.io/clone-factory",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Create clone contracts with 96 bytes deployed on chain.",
   "main": "init.js",
   "directories": {
@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "generate": "node ./scripts/generate.js"
   },
-  "author": "",
+  "author": "Peter M. Murray <pete@pmurray.com>",
   "license": "MIT",
   "devDependencies": {
     "@optionality.io/evm-asm": "^0.1.0",
