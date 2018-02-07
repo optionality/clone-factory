@@ -6,10 +6,9 @@ Check out the contracts/CloneFactory.sol file for details.  This code (intended 
 will allow you to install a master copy of a contract, then easily (cheaply) create clones with separate state.  The deployed bytecode
 just delegates all calls to the master contract address.
 
-`npm install yarrumretep/clone-factory`
+`npm install @optionality.io/clone-factory`
 
-Then you can write code like this:
-```
+```javascript
 import "./Thing.sol";
 import "clone-factory/contracts/CloneFactory.sol";
 import "zeppelin-solidity/contracts/ownership/Ownable.sol";

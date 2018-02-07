@@ -1,7 +1,7 @@
 {
-  "name": "clone-factory",
-  "version": "1.0.0",
-  "description": "",
+  "name": "@optionality.io/clone-factory",
+  "version": "0.1.0",
+  "description": "Create clone contracts with 96 bytes deployed on chain.",
   "main": "init.js",
   "directories": {
     "test": "test"
@@ -11,11 +11,11 @@
     "generate": "node ./scripts/generate.js"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
-    "evm-asm": "github:yarrumretep/evm-asm"
+    "evm-asm": "github:yarrumretep/evm-asm",
+    "expect": "^22.1.0"
   },
   "dependencies": {
-    "expect": "^22.1.0"
   }
 }
