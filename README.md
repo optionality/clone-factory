@@ -1,5 +1,5 @@
 # clone-factory
-Simple clone contract factory
+Simple clone contract factory [![Build Status](https://travis-ci.org/yarrumretep/clone-factory.svg?branch=master)](https://travis-ci.org/yarrumretep/clone-factory)
 
 
 Check out the contracts/CloneFactory.sol file for details.  This code (intended to be called from an implementor factory contract)
