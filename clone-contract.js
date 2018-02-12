@@ -1,4 +1,4 @@
-const evm = require('evm-asm');
+const evm = require('@optionality.io/evm-asm');
 
 module.exports = evm.program([
 
@@ -28,8 +28,6 @@ module.exports = evm.program([
   evm.push20('0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef'),
   evm.gas(),
   evm.delegatecall(),
-  evm.dup1(),
-  evm.dup1(),
   evm.iszero(),
   evm.push1('revert-code'),
   evm.jumpi(),
