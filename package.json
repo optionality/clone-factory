@@ -1,6 +1,6 @@
 {
   "name": "@optionality.io/clone-factory",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Create clone contracts with 96 bytes deployed on chain.",
   "main": "init.js",
   "directories": {

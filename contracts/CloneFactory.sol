@@ -1,4 +1,4 @@
-pragma solidity 0.4.19;
+pragma solidity ^0.4.19; // solhint-disable-line compiler-fixed
 
 /*
 The MIT License (MIT)
