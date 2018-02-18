@@ -1,4 +1,4 @@
-pragma solidity ^0.4.19; // solhint-disable-line compiler-fixed
+pragma solidity 0.4.19;
 
 /*
 The MIT License (MIT)
@@ -32,7 +32,7 @@ contract CloneFactory {
   event CloneCreated(address indexed target, address clone);
 
   function createClone(address target) internal returns (address result) {
-    bytes memory clone = hex"3460425760388060106000396000f30036600060ff376000803660ff73beefbeefbeefbeefbeefbeefbeefbeefbeefbeef5af4156032573d80600060ff3e60fff3005b600080fd00";
+    bytes memory clone = hex"600034603f576033806010833981f30060ff6000368183378080368473beefbeefbeefbeefbeefbeefbeefbeefbeefbeef5af415602f573d8082843e82f3005b80fd00";
     bytes20 targetBytes = bytes20(target);
     for (uint i = 0; i < 20; i++) {
       clone[29 + i] = targetBytes[i];
