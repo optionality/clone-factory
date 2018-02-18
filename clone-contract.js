@@ -28,13 +28,13 @@ module.exports = evm.program([
   evm.dup1(), // copy 0x0 - return data location
   evm.calldatasize(), // size of calldata
   evm.dup2(), // copy 0x0 - address of calldata
-  evm.push20('0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef'),
-  evm.gas(),
+  evm.push20('0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef'), // address placeholder
+  evm.gas(), // gas budget (all of it)
   evm.delegatecall(),
-  evm.iszero(),
-  evm.push1('revert-code'),
-  evm.jumpi(),
-  evm.returndatasize(),
+  evm.iszero(), // check return value
+  evm.push1('revert-code'), // revert address (in code address space)
+  evm.jumpi(), // revert if zero
+  evm.returndatasize(), // size of copy
   evm.dup2(), // copy 0 - offset in return data
   evm.dup1(), // copy 0x0 - destination location
   evm.returndatacopy(),
