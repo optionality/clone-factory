@@ -22,13 +22,13 @@ module.exports = evm.program([
   evm.push1(0xff),
   evm.push1(0),
   evm.calldatasize(),
-  evm.dup2(),
-  evm.dup4(),
+  evm.dup2(), // copy 0
+  evm.dup4(), // copy 0xff
   evm.calldatacopy(),
-  evm.dup1(),
-  evm.dup1(),
+  evm.dup1(), // copy 0
+  evm.dup1(), // copy 0
   evm.calldatasize(),
-  evm.dup5(),
+  evm.dup5(), // copy 0xff
   evm.push20('0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef'),
   evm.gas(),
   evm.delegatecall(),
@@ -36,15 +36,15 @@ module.exports = evm.program([
   evm.push1('revert-code'),
   evm.jumpi(),
   evm.returndatasize(),
-  evm.dup1(),
-  evm.dup3(),
-  evm.dup5(),
+  evm.dup1(), // copy returndatasize
+  evm.dup3(), // copy 0
+  evm.dup5(), // copy 0xff
   evm.returndatacopy(),
-  evm.dup3(),
+  evm.dup3(), // copy 0xff
   evm.return(),
   evm.stop(),
   evm.jumpdest('revert'),
-  evm.dup1(),
+  evm.dup1(), // copy 0
   evm.revert(),
   evm.stop(),
 
