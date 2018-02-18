@@ -14,6 +14,10 @@ contract ThingFactory is CloneFactory {
     libraryAddress = _libraryAddress;
   }
 
+  function onlyCreate() public {
+    createClone(libraryAddress);
+  }
+
   function createThing(string _name, uint _value) public {
     address clone = createClone(libraryAddress);
     Thing(clone).init(_name, _value);

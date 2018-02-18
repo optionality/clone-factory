@@ -15,11 +15,22 @@ contract('CloneFactory', () => {
       })
       .then(_factory => {
         factory = {
+          cloneCost: () => {
+            return _factory.onlyCreate().then(tx => tx.receipt.gasUsed)
+          },
           createThing: (name, value) => {
             return _factory.createThing(name, value)
               .then(tx => Thing.at(tx.logs[0].args.newThingAddress))
           }
         }
+      })
+  })
+
+  it('should be cheap', () => {
+    return factory.cloneCost()
+      .then(cost => {
+        console.log("Clone cost: " + cost);
+        expect(+cost).toBeLessThan(70000)
       })
   })
 
