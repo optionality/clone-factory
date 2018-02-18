@@ -14,7 +14,6 @@ module.exports = evm.program([
   evm.codecopy(),
   evm.dup2(),
   evm.return(),
-  evm.stop(),
   evm.label('code'),
 
 
@@ -28,6 +27,7 @@ module.exports = evm.program([
   evm.dup1(), // copy 0x0 - return data location
   evm.calldatasize(), // size of calldata
   evm.dup2(), // copy 0x0 - address of calldata
+  evm.label('address'),
   evm.push20('0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef'), // address placeholder
   evm.gas(), // gas budget (all of it)
   evm.delegatecall(),

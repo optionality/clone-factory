@@ -35,7 +35,7 @@ contract CloneFactory {
     bytes memory clone = hex"${code}";
     bytes20 targetBytes = bytes20(target);
     for (uint i = 0; i < 20; i++) {
-      clone[27 + i] = targetBytes[i];
+      clone[${cloner.labels.address + 1} + i] = targetBytes[i];
     }
     assembly {
       let len := mload(clone)

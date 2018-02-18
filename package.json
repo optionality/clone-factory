@@ -13,7 +13,7 @@
   "author": "Peter M. Murray <pete@pmurray.com>",
   "license": "MIT",
   "devDependencies": {
-    "@optionality.io/evm-asm": "^0.1.0",
+    "@optionality.io/evm-asm": "^0.1.2",
     "expect": "^22.1.0"
   },
   "dependencies": {}
