@@ -10,7 +10,7 @@ just delegates all calls to the master contract address.
 
 ```javascript
 import "./Thing.sol";
-import "clone-factory/contracts/CloneFactory.sol";
+import "@optionality.io/clone-factory/contracts/CloneFactory.sol";
 import "zeppelin-solidity/contracts/ownership/Ownable.sol";
 
 
