@@ -1,12 +1,21 @@
 const fs = require('fs');
-const cloner = require('../clone-contract.js');
+const clonerFactory = require('../clone-contract.js');
 
-const template = fs.readFileSync('./templates/CloneFactory.solt');
+function generate(bytes, output) {
 
-const code = cloner.generate().substring(2); // eliminate the 0x
+  const template = fs.readFileSync('./templates/CloneFactory.solt');
+  const cloner = clonerFactory(bytes);
+  const code = cloner.generate().substring(2); // eliminate the 0x
 
-const result = eval('`' + template + '`');
+  const result = eval('`' + template + '`');
 
-fs.writeFileSync('./contracts/CloneFactory.sol', result);
+  fs.writeFileSync(output, result);
 
-console.log("Generated CloneFactory.sol");
+}
+
+generate(20, './contracts/CloneFactory.sol')
+generate(18, './contracts/CloneFactory18.sol')
+generate(17, './contracts/CloneFactory17.sol')
+generate(16, './contracts/CloneFactory16.sol')
+
+console.log("Generated CloneFactory classes!");

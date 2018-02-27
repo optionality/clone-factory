@@ -1,6 +1,6 @@
 const evm = require('@optionality.io/evm-asm');
 
-module.exports = evm.program([
+module.exports = (bytes = 20) => evm.program([
 
   // initialization code
   evm.push1(0),
@@ -28,7 +28,7 @@ module.exports = evm.program([
   evm.calldatasize(), // size of calldata
   evm.dup2(), // copy 0x0 - address of calldata
   evm.label('address'),
-  evm.push20('0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef'), // address placeholder
+  evm['push' + bytes]('0x' + 'be'.repeat(bytes)), // address placeholder
   evm.gas(), // gas budget (all of it)
   evm.delegatecall(),
   evm.iszero(), // check return value
