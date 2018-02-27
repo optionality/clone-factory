@@ -14,7 +14,10 @@
   "license": "MIT",
   "devDependencies": {
     "@optionality.io/evm-asm": "^0.1.2",
-    "expect": "^22.1.0"
+    "ethereumjs-wallet": "^0.6.0",
+    "ethjs-query": "^0.3.3",
+    "expect": "^22.1.0",
+    "truffle-wallet-provider": "github:crypedit/truffle-wallet-provider"
   },
   "dependencies": {}
 }

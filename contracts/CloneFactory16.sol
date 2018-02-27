@@ -27,15 +27,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //solhint-disable max-line-length
 //solhint-disable no-inline-assembly
 
-contract CloneFactory${bytes == 20 ? "" : bytes} {
+contract CloneFactory16 {
 
   event CloneCreated(address indexed target, address clone);
 
   function createClone(address target) internal returns (address result) {
-    bytes memory clone = hex"${code}";
+    bytes memory clone = hex"600034603757602b80600f833981f3600036818037808036816fbebebebebebebebebebebebebebebebe5af4156028573d81803e3d81f35b80fd";
     bytes20 targetBytes = bytes20(target);
-    for (uint i = 0; i < ${bytes}; i++) {
-      clone[${cloner.labels.address + 1} + i] = targetBytes[${bytes === 20 ? "" : (20 - bytes) + " + "}i];
+    for (uint i = 0; i < 16; i++) {
+      clone[26 + i] = targetBytes[4 + i];
     }
     assembly {
       let len := mload(clone)
