@@ -31,18 +31,19 @@ module.exports = (bytes = 20) => evm.program([
   evm['push' + bytes]('0x' + 'be'.repeat(bytes)), // address placeholder
   evm.gas(), // gas budget (all of it)
   evm.delegatecall(),
+  evm.returndatasize(), // size of copy
+  evm.dup3(), // copy 0 - offset in return data
+  evm.dup1(), // copy 0x0 - destination location
+  evm.returndatacopy(),
   evm.iszero(), // check return value
   evm.push1('revert-code'), // revert address (in code address space)
   evm.jumpi(), // revert if zero
-  evm.returndatasize(), // size of copy
-  evm.dup2(), // copy 0 - offset in return data
-  evm.dup1(), // copy 0x0 - destination location
-  evm.returndatacopy(),
   evm.returndatasize(), // length of return data
-  evm.dup2(), // copy 0x0 - location of return data
+  evm.swap1(), // pull up 0x0 - location of return data
   evm.return(),
   evm.jumpdest('revert'),
-  evm.dup1(), // copy 0x0 - revert data location
+  evm.returndatasize(), // length of return data
+  evm.swap1(), // pull up 0x0 - revert data location
   evm.revert(),
 
   // end label

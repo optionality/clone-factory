@@ -1,4 +1,4 @@
-pragma solidity 0.4.19;
+pragma solidity 0.4.23;
 
 /*
 The MIT License (MIT)
@@ -32,7 +32,7 @@ contract CloneFactory18 {
   event CloneCreated(address indexed target, address clone);
 
   function createClone(address target) internal returns (address result) {
-    bytes memory clone = hex"600034603957602d80600f833981f36000368180378080368171bebebebebebebebebebebebebebebebebebe5af415602a573d81803e3d81f35b80fd";
+    bytes memory clone = hex"600034603957602e80600f833981f36000368180378080368171bebebebebebebebebebebebebebebebebebe5af43d82803e15602a573d90f35b3d90fd";
     bytes20 targetBytes = bytes20(target);
     for (uint i = 0; i < 18; i++) {
       clone[26 + i] = targetBytes[2 + i];
