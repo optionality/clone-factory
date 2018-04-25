@@ -1,4 +1,4 @@
-pragma solidity 0.4.19;
+pragma solidity 0.4.23;
 
 //solhint-disable max-line-length
 //solhint-disable no-inline-assembly
@@ -10,7 +10,7 @@ contract Thing {
 
   event ThingEvent(address sender, string name, uint value);
 
-  function Thing() public {
+  constructor() public {
     name = "master"; // force default deployment to be init'd
   }
 
@@ -23,6 +23,12 @@ contract Thing {
   }
 
   function doit() public {
-    ThingEvent(address(this), name, value);
+    emit ThingEvent(address(this), name, value);
+  }
+
+  function epicfail() public returns (string){
+    value++;
+    require(false, "Hello world!");
+    return "Goodbye sweet world!";
   }
 }
