@@ -7,6 +7,7 @@ const Eth = require('ethjs-query');
 const ShortThingFactory = artifacts.require('./ShortThingFactory.sol');
 const ThingFactory = artifacts.require('./ThingFactory.sol');
 const Thing = artifacts.require('./Thing.sol');
+const TestRevertPayload = artifacts.require('./TestRevertPayload.sol');
 
 contract('CloneFactory', (accounts) => {
   var global;
@@ -54,6 +55,13 @@ contract('CloneFactory', (accounts) => {
         .then(value => expect(value).toBe('master'))
         .then(() => global.value())
         .then(value => expect(+value).toBe(0));
+    })
+
+    it('should revert with payload', async () => {
+      var reverter = await TestRevertPayload.new();
+      var thing = await factory.createThing("Fred", 233);
+      var result = await reverter.getRevertMessage(thing.address);
+      expect(result.logs[0].args.message).toBe("Hello world!");
     })
   });
 

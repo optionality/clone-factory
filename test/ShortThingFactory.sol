@@ -1,4 +1,4 @@
-pragma solidity 0.4.19;
+pragma solidity 0.4.23;
 
 import "./Thing.sol";
 import "../contracts/CloneFactory17.sol";
@@ -10,7 +10,7 @@ contract ShortThingFactory is CloneFactory17 {
 
   event ThingCreated(address newThingAddress, address libraryAddress);
 
-  function ShortThingFactory(address _libraryAddress) public {
+  constructor(address _libraryAddress) public {
     libraryAddress = _libraryAddress;
   }
 
@@ -21,6 +21,6 @@ contract ShortThingFactory is CloneFactory17 {
   function createThing(string _name, uint _value) public {
     address clone = createClone(libraryAddress);
     Thing(clone).init(_name, _value);
-    ThingCreated(clone, libraryAddress);
+    emit ThingCreated(clone, libraryAddress);
   }
 }
