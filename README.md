@@ -1,5 +1,5 @@
 # clone-factory
-Simple clone contract factory [![Build Status](https://travis-ci.org/optionality/clone-factory.svg?branch=master)](https://travis-ci.org/yarrumretep/clone-factory)
+Simple clone contract factory [![Build Status](https://travis-ci.org/optionality/clone-factory.svg?branch=master)](https://travis-ci.org/optionality/clone-factory)
 
 
 Check out the contracts/CloneFactory.sol file for details.  This code (intended to be called from an implementor factory contract)
@@ -42,4 +42,4 @@ This will inexpensively create a mimimalist forwarding shim contract that will d
 Using [vanity-eth](https://github.com/MyEtherWallet/VanityEth) generate a vanity contract address with up to 4 bytes of leading zeros and use the CloneFactory16 - CloneFactory18 versions to deploy even smaller clones.  HT to [wjmelements](https://github.com/wjmelements) for pointing this out!
 
 ## License
-Code released under the [MIT License](https://github.com/yarrumretep/clone-factory/blob/master/LICENSE).
+Code released under the [MIT License](https://github.com/optionality/clone-factory/blob/master/LICENSE).
