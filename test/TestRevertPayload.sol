@@ -1,4 +1,4 @@
-pragma solidity 0.4.23;
+pragma solidity ^0.4.23;
 
 //solhint-disable max-line-length
 //solhint-disable no-inline-assembly
