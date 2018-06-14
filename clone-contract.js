@@ -2,6 +2,7 @@ const evm = require('@optionality.io/evm-asm');
 
 const contract = (bytes = 20) => [
   // contract code
+  evm.label('code'),
   evm.push1(0),
   evm.calldatasize(), // size of copy
   evm.dup2(), // copy 0 - offset in calldata
@@ -48,7 +49,6 @@ const loader = (bytes = 20) => [
   evm.codecopy(),
   evm.dup2(),
   evm.return(),
-  evm.label('code'),
 
   ...contract(bytes)
 ]

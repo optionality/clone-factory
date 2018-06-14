@@ -13,9 +13,22 @@ function generate(bytes, output) {
 
 }
 
+function generateProbe(output) {
+  const template = fs.readFileSync('./templates/ContractProbe.solt');
+  const cloner = clonerFactory.contract(20);
+  const code = cloner.generate().substring(2); // eliminate the 0x
+
+  const result = eval('`' + template + '`');
+
+  fs.writeFileSync(output, result);
+}
+
 generate(20, './contracts/CloneFactory.sol')
 generate(18, './contracts/CloneFactory18.sol')
 generate(17, './contracts/CloneFactory17.sol')
 generate(16, './contracts/CloneFactory16.sol')
 
+generateProbe('./contracts/ContractProbe.sol')
+
 console.log("Generated CloneFactory classes!");
+
