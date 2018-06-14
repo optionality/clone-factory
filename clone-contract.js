@@ -1,22 +1,6 @@
 const evm = require('@optionality.io/evm-asm');
 
-module.exports = (bytes = 20) => evm.program([
-
-  // initialization code
-  evm.push1(0),
-  evm.callvalue(),
-  evm.push1('revert'),
-  evm.jumpi(),
-  evm.push1('codeend-code'),
-  evm.dup1(),
-  evm.push1('code'),
-  evm.dup4(),
-  evm.codecopy(),
-  evm.dup2(),
-  evm.return(),
-  evm.label('code'),
-
-
+const contract = (bytes = 20) => [
   // contract code
   evm.push1(0),
   evm.calldatasize(), // size of copy
@@ -37,6 +21,7 @@ module.exports = (bytes = 20) => evm.program([
   evm.returndatacopy(),
   evm.iszero(), // check return value
   evm.push1('revert-code'), // revert address (in code address space)
+  evm.label('revertpush'),
   evm.jumpi(), // revert if zero
   evm.returndatasize(), // length of return data
   evm.swap1(), // pull up 0x0 - location of return data
@@ -48,4 +33,27 @@ module.exports = (bytes = 20) => evm.program([
 
   // end label
   evm.label('codeend')
-]);
+]
+
+const loader = (bytes = 20) => [
+  // initialization code
+  evm.push1(0),
+  evm.callvalue(),
+  evm.push1('revert'),
+  evm.jumpi(),
+  evm.push1('codeend-code'),
+  evm.dup1(),
+  evm.push1('code'),
+  evm.dup4(),
+  evm.codecopy(),
+  evm.dup2(),
+  evm.return(),
+  evm.label('code'),
+
+  ...contract(bytes)
+]
+
+module.exports = {
+  loader: (bytes = 20) => evm.program(loader(bytes)),
+  contract: (bytes = 20) => evm.program(contract(bytes))
+}

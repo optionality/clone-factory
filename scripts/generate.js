@@ -4,7 +4,7 @@ const clonerFactory = require('../clone-contract.js');
 function generate(bytes, output) {
 
   const template = fs.readFileSync('./templates/CloneFactory.solt');
-  const cloner = clonerFactory(bytes);
+  const cloner = clonerFactory.loader(bytes);
   const code = cloner.generate().substring(2); // eliminate the 0x
 
   const result = eval('`' + template + '`');
