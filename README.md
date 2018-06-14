@@ -38,8 +38,13 @@ contract ThingFactory is Ownable, CloneFactory {
 
 This will inexpensively create a mimimalist forwarding shim contract that will delegate all calls to the contract libraryAddress
 
-## New even CHEAPER clone contracts
+## Use vanity contract addresses for even CHEAPER clone contracts
 Using [vanity-eth](https://github.com/MyEtherWallet/VanityEth) generate a vanity contract address with up to 4 bytes of leading zeros and use the CloneFactory16 - CloneFactory18 versions to deploy even smaller clones.  HT to [wjmelements](https://github.com/wjmelements) for pointing this out!
+
+## ContractProbe contract 
+Using this deployed contract d'apps, wallets, or other contracts can detect if an address contains a clone and to what address it redirects to.  This contract is deployed at the following addresses:
+- Kovan: [0x8b98e65e0e8bce0f71a2a22f3d2666591e4cc857](https://kovan.etherscan.io/address/0x8b98e65e0e8bce0f71a2a22f3d2666591e4cc857)
+- Mainnet: [0x0c953133aa046965b83a3de1215ed4285414537c](https://etherscan.io/address/0x0c953133aa046965b83a3de1215ed4285414537c)
 
 ## License
 Code released under the [MIT License](https://github.com/optionality/clone-factory/blob/master/LICENSE).
