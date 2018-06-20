@@ -27,7 +27,7 @@ This standard is desireable to allow for use-cases wherein it is desireable to c
 <!--The technical specification should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations for any of the current Ethereum platforms (go-ethereum, parity, cpp-ethereum, ethereumj, ethereumjs, and [others](https://github.com/ethereum/wiki/wiki/Clients)).-->
 The exact bytecode of the standard clone contract is this: `6000368180378080368173bebebebebebebebebebebebebebebebebebebebe5af43d82803e15602c573d90f35b3d90fd` wherein the bytes at idices 10 - 29 (inclusive) are replaced with the 20 byte address of the master functionality contract.  The reference implementation of this is found at the [optionality/clone-factory](https://github.com/optionality/clone-factory) github repo.  There are variations as well for using vanity contract addresses with leading zeros to further shrink the necessary clone bytecode (thus making it cheaper to deploy).  Detection of clone and redirection is implemented in the clone-factory repo with a contract deployed on both Kovan and Mainnet that detects the presence of a clone and returns the destination address if the interrogated contract is a clone (handles shortened addresses as well).
 
-These bytecodes implement the following:
+The standard 20 byte address clone bytecodes implement the following:
 ```
 [1] PUSH1 0x00 
 [2] CALLDATASIZE 
