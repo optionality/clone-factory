@@ -13,7 +13,7 @@ created: June 22, 2018
 
 ## Simple Summary
 <!--"If you can't explain it simply, you don't understand it well enough." Provide a simplified and layman-accessible explanation of the EIP.-->
-To simply and cheaply clone contract code in an immutable way, we propose to standardize on a minimal bytecode implementation which delegates all calls to a known, fixed address.  
+To simply and cheaply clone contract code with separate state in an immutable way, we propose to standardize on a minimal bytecode implementation which delegates all calls to a known, fixed address.  
 ## Abstract
 <!--A short (~200 word) description of the technical issue being addressed.-->
 By standardizing on a known minimal bytecode redirect implementation, this standard will allow users and third party tools (e.g. Etherscan) to (a) simply discover that a contract will always redirect in a known manner and (b) depend on the behavior of the code at the destination contract as the behavior of the redirecting contract.  Specifically, tooling can interrogate the bytecode at a redirecting address to determine the location of the code that will run - and can depend on representations about that code (verified source, third-party audits, etc).  We have an implementation we believe to be minimal and covering calls that complete normally and those that revert with data.  (Please scrutinize this with us to ensure it's correct and minimal) 
@@ -21,7 +21,7 @@ By standardizing on a known minimal bytecode redirect implementation, this stand
 
 ## Motivation
 <!--The motivation is critical for EIPs that want to change the Ethereum protocol. It should clearly explain why the existing protocol specification is inadequate to address the problem that the EIP solves. EIP submissions without sufficient motivation may be rejected outright.-->
-This standard is desireable to allow for use-cases wherein it is desireable to clone exact contract functionality with a minimum of side effects (e.g. memory slot stomping) and with super-cheap deployment of duplicate proxies.
+This standard is desireable to allow for use-cases wherein it is desireable to clone exact contract functionality with a minimum of side effects (e.g. memory slot stomping) and with inexpensive deployment of proxy instances.
 
 ## Specification
 <!--The technical specification should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations for any of the current Ethereum platforms (go-ethereum, parity, cpp-ethereum, ethereumj, ethereumjs, and [others](https://github.com/ethereum/wiki/wiki/Clients)).-->
