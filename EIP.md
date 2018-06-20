@@ -27,6 +27,36 @@ This standard is desireable to allow for use-cases wherein it is desireable to c
 <!--The technical specification should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations for any of the current Ethereum platforms (go-ethereum, parity, cpp-ethereum, ethereumj, ethereumjs, and [others](https://github.com/ethereum/wiki/wiki/Clients)).-->
 The exact bytecode of the standard clone contract is this: `6000368180378080368173bebebebebebebebebebebebebebebebebebebebe5af43d82803e15602c573d90f35b3d90fd` wherein the bytes at idices 10 - 29 (inclusive) are replaced with the 20 byte address of the master functionality contract.  The reference implementation of this is found at the [optionality/clone-factory](https://github.com/optionality/clone-factory) github repo.  There are variations as well for using vanity contract addresses with leading zeros to further shrink the necessary clone bytecode (thus making it cheaper to deploy).  Detection of clone and redirection is implemented in the clone-factory repo with a contract deployed on both Kovan and Mainnet that detects the presence of a clone and returns the destination address if the interrogated contract is a clone (handles shortened addresses as well).
 
+These bytecodes implement the following:
+```
+[1] PUSH1 0x00 
+[2] CALLDATASIZE 
+[3] DUP2 
+[4] DUP1 
+[5] CALLDATACOPY 
+[6] DUP1 
+[7] DUP1 
+[8] CALLDATASIZE 
+[9] DUP2 
+[30] PUSH20  0xbebebebebebebebebebebebebebebebebebebebe 
+[31] GAS 
+[32] DELEGATE_CALL 
+[33] RETURN DATA SIZE 
+[34] DUP3 
+[35] DUP1 
+[36] RETURN DATA COPY 
+[37] ISZERO 
+[39] PUSH1 0x2c 
+[40] JUMPI 
+[41] RETURN DATA SIZE
+[42] SWAP1 
+[43] RETURN 
+[44] JUMPDEST 
+[45] RETURN DATA SIZE 
+[46] SWAP1 
+[47] REVERT 
+```
+
 ## Rationale
 <!--The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages. The rationale may also provide evidence of consensus within the community, and should discuss important objections or concerns raised during discussion.-->
 The goals of this effort have been the following:
