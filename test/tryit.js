@@ -70,6 +70,7 @@ contract('CloneFactory', (accounts) => {
       var result = await thing.doit();
       var cost = result.receipt.gasUsed - naked.receipt.gasUsed;
       console.log("COST: " + cost);
+      expect(cost).toBe(768);
     });
 
   });
