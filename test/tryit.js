@@ -63,6 +63,16 @@ contract('CloneFactory', (accounts) => {
       var result = await reverter.getRevertMessage(thing.address);
       expect(result.logs[0].args.message).toBe("Hello world!");
     })
+
+    it('should be cheap to use', async () => {
+      var thing = await factory.createThing("Fred", "345");
+      var naked = await global.doit();
+      var result = await thing.doit();
+      var cost = result.receipt.gasUsed - naked.receipt.gasUsed;
+      console.log("COST: " + cost);
+      expect(cost).toBe(768);
+    });
+
   });
 
   describe("ShortCloneFactory", () => {
