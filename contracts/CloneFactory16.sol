@@ -32,10 +32,10 @@ contract CloneFactory16 {
   event CloneCreated(address indexed target, address clone);
 
   function createClone(address target) internal returns (address result) {
-    bytes memory clone = hex"600034603757602c80600f833981f3600036818037808036816fbebebebebebebebebebebebebebebebe5af43d82803e156028573d90f35b3d90fd";
+    bytes memory clone = hex"3d602980600a3d3981f3363d3d373d3d3d363d6fbebebebebebebebebebebebebebebebe5af43d82803e903d91602757fd5bf3";
     bytes20 targetBytes = bytes20(target);
     for (uint i = 0; i < 16; i++) {
-      clone[26 + i] = targetBytes[4 + i];
+      clone[20 + i] = targetBytes[4 + i];
     }
     assembly {
       let len := mload(clone)

@@ -54,7 +54,7 @@ contract ContractProbe {
                 matches = code[i] == clone[i];
             }
             for (i = 0; matches && i < ${cloner.labels.codeend - (cloner.labels.address + 21)}; i++) {
-                if (i == ${cloner.labels.codeend - cloner.labels.revertpush}) {
+                if (i == ${cloner.labels.codeend - cloner.labels.returnpush}) {
                     matches = code[code.length - i - 1] == byte(uint(clone[${code.length / 2} - i - 1]) - (${code.length / 2} - size));
                 } else {
                     matches = code[code.length - i - 1] == clone[${code.length / 2} - i - 1];

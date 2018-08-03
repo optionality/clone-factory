@@ -3,52 +3,46 @@ const evm = require('@optionality.io/evm-asm');
 const contract = (bytes = 20) => [
   // contract code
   evm.label('code'),
-  evm.push1(0),
-  evm.calldatasize(), // size of copy
-  evm.dup2(), // copy 0 - offset in calldata
-  evm.dup1(), // copy 0x0 - destination location
-  evm.calldatacopy(),
-  evm.dup1(), // copy 0 - return data size
-  evm.dup1(), // copy 0x0 - return data location
-  evm.calldatasize(), // size of calldata
-  evm.dup2(), // copy 0x0 - address of calldata
+  evm.calldatasize(),                                   // cds            
+  evm.returndatasize(),                                 // 0 cds          // per EIP-211
+  evm.returndatasize(),                                 // 0 0 cds        // per EIP-211
+  evm.calldatacopy(),                                   //    
+  evm.returndatasize(),                                 // 0              // per EIP-211
+  evm.returndatasize(),                                 // 0 0            // per EIP-211
+  evm.returndatasize(),                                 // 0 0 0          // per EIP-211
+  evm.calldatasize(),                                   // cds 0 0 0       
+  evm.returndatasize(),                                 // 0 cds 0 0 0    // per EIP-211
   evm.label('address'),
-  evm['push' + bytes]('0x' + 'be'.repeat(bytes)), // address placeholder
-  evm.gas(), // gas budget (all of it)
-  evm.delegatecall(),
-  evm.returndatasize(), // size of copy
-  evm.dup3(), // copy 0 - offset in return data
-  evm.dup1(), // copy 0x0 - destination location
-  evm.returndatacopy(),
-  evm.iszero(), // check return value
-  evm.push1('revert-code'), // revert address (in code address space)
-  evm.label('revertpush'),
-  evm.jumpi(), // revert if zero
-  evm.returndatasize(), // length of return data
-  evm.swap1(), // pull up 0x0 - location of return data
-  evm.return(),
-  evm.jumpdest('revert'),
-  evm.returndatasize(), // length of return data
-  evm.swap1(), // pull up 0x0 - revert data location
+  evm['push' + bytes]('0x' + 'be'.repeat(bytes)),       // bebe 0 cds 0 0 0
+  evm.gas(),                                            // gas bebe 0 cds 0 0 0  // all gas for delegate
+  evm.delegatecall(),                                   // s 0
+  evm.returndatasize(),                                 // rds s 0
+  evm.dup3(),                                           // 0 rds s 0
+  evm.dup1(),                                           // 0
+  evm.returndatacopy(),                                 // s 0
+  evm.swap1(),                                          // 0 s 
+  evm.returndatasize(),                                 // rds 0 s
+  evm.swap2(),                                          // s 0 rds
+  evm.push1('return-code'),                             // return address (in code address space)
+  evm.label('returnpush'),                              // 
+  evm.jumpi(), // return if zero
   evm.revert(),
-
+  evm.jumpdest('return'),
+  evm.return(),
   // end label
   evm.label('codeend')
 ]
 
 const loader = (bytes = 20) => [
   // initialization code
-  evm.push1(0),
-  evm.callvalue(),
-  evm.push1('revert'),
-  evm.jumpi(),
-  evm.push1('codeend-code'),
-  evm.dup1(),
-  evm.push1('code'),
-  evm.dup4(),
-  evm.codecopy(),
-  evm.dup2(),
-  evm.return(),
+  evm.returndatasize(),                                 // 0                           // Per EIP-211 this is a 0
+  evm.push1('codeend-code'),                            // codelen 0
+  evm.dup1(),                                           // codelen codelen 0
+  evm.push1('code'),                                    // codeoff codelen codelen 0
+  evm.returndatasize(),                                 // 0 codeoff codelen codelen 0
+  evm.codecopy(),                                       // codelen 0
+  evm.dup2(),                                           // 0 codelen 0
+  evm.return(),                                         // 0
 
   ...contract(bytes)
 ]

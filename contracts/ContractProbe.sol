@@ -29,7 +29,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 contract ContractProbe {
 
     function probe(address _addr) public view returns (bool isContract, address forwardedTo) {
-        bytes memory clone = hex"6000368180378080368173bebebebebebebebebebebebebebebebebebebebe5af43d82803e15602c573d90f35b3d90fd";
+        bytes memory clone = hex"363d3d373d3d3d363d73bebebebebebebebebebebebebebebebebebebebe5af43d82803e903d91602b57fd5bf3";
         uint size;
         bytes memory code;
 
@@ -40,7 +40,7 @@ contract ContractProbe {
         isContract = size > 0;
         forwardedTo = _addr;
 
-        if (size <= 48 && size >= 44) {
+        if (size <= 45 && size >= 41) {
             bool matches = true;
             uint i;
 
@@ -50,26 +50,26 @@ contract ContractProbe {
                 mstore(code, size)
                 extcodecopy(_addr, add(code, 0x20), 0, size)
             }
-            for (i = 0; matches && i < 10; i++) { 
+            for (i = 0; matches && i < 9; i++) { 
                 matches = code[i] == clone[i];
             }
-            for (i = 0; matches && i < 17; i++) {
-                if (i == 8) {
-                    matches = code[code.length - i - 1] == byte(uint(clone[48 - i - 1]) - (48 - size));
+            for (i = 0; matches && i < 15; i++) {
+                if (i == 4) {
+                    matches = code[code.length - i - 1] == byte(uint(clone[45 - i - 1]) - (45 - size));
                 } else {
-                    matches = code[code.length - i - 1] == clone[48 - i - 1];
+                    matches = code[code.length - i - 1] == clone[45 - i - 1];
                 }
             }
-            if (code[10] != byte(0x73 - (48 - size))) {
+            if (code[9] != byte(0x73 - (45 - size))) {
                 matches = false;
             }
             uint forwardedToBuffer;
             if (matches) {
                 assembly { //solhint-disable-line
-                    forwardedToBuffer := mload(add(code, 31))
+                    forwardedToBuffer := mload(add(code, 30))
                 }
                 forwardedToBuffer &= (0x1 << 20 * 8) - 1;
-                forwardedTo = address(forwardedToBuffer >> ((48 - size) * 8));
+                forwardedTo = address(forwardedToBuffer >> ((45 - size) * 8));
             }
         }
     }
