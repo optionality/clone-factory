@@ -50,5 +50,9 @@ Using this deployed contract d'apps, wallets, or other contracts can detect if a
 - Kovan: [0x8b98e65e0e8bce0f71a2a22f3d2666591e4cc857](https://kovan.etherscan.io/address/0x8b98e65e0e8bce0f71a2a22f3d2666591e4cc857)
 - Mainnet: [0x0c953133aa046965b83a3de1215ed4285414537c](https://etherscan.io/address/0x0c953133aa046965b83a3de1215ed4285414537c)
 
+## Build Notes
+To run the scripts/r2.js script, you need to have [radare2](http://www.radare.org/r/) installed along with the evm module (`r2pm install evm`).
+
+
 ## License
 Code released under the [MIT License](https://github.com/optionality/clone-factory/blob/master/LICENSE).

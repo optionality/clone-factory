@@ -19,5 +19,7 @@
     "expect": "^22.1.0",
     "truffle-wallet-provider": "github:crypedit/truffle-wallet-provider"
   },
-  "dependencies": {}
+  "dependencies": {
+    "r2pipe-promise": "^1.4.1"
+  }
 }
