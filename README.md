@@ -47,8 +47,14 @@ Using [vanity-eth](https://github.com/MyEtherWallet/VanityEth) generate a vanity
 
 ## ContractProbe contract 
 Using this deployed contract d'apps, wallets, or other contracts can detect if an address contains a clone and to what address it redirects to.  This contract is deployed at the following addresses:
-- Kovan: [0x8b98e65e0e8bce0f71a2a22f3d2666591e4cc857](https://kovan.etherscan.io/address/0x8b98e65e0e8bce0f71a2a22f3d2666591e4cc857)
-- Mainnet: [0x0c953133aa046965b83a3de1215ed4285414537c](https://etherscan.io/address/0x0c953133aa046965b83a3de1215ed4285414537c)
+- Kovan: [0xBA0668bA8D0c3220f488985B80A07380532630Be](https://kovan.etherscan.io/address/0xBA0668bA8D0c3220f488985B80A07380532630Be)
+- Mainnet: [0x4B6B2db16E3EEe4EE52bC3888c38a76C20d375f1](https://etherscan.io/address/0x4B6B2db16E3EEe4EE52bC3888c38a76C20d375f1)
+- Ropsten: [0xC48E6e8E89DfbbcDcdBC8d5514A46Ba5e9A509EC](https://ropsten.etherscan.io/address/0xc48e6e8e89dfbbcdcdbc8d5514a46ba5e9a509ec)
+- Rinkeby: [0x74f06a973046999fcd3905461baf8cbce596668f](https://rinkeby.etherscan.io/address/0x74f06a973046999fcd3905461baf8cbce596668f)
+
+## Build Notes
+To run the scripts/r2.js script, you need to have [radare2](http://www.radare.org/r/) installed along with the evm module (`r2pm install evm`).
+
 
 ## License
 Code released under the [MIT License](https://github.com/optionality/clone-factory/blob/master/LICENSE).
