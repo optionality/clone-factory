@@ -1,6 +1,6 @@
 {
   "name": "@optionality.io/clone-factory",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Create clone contracts with 96 bytes deployed on chain.",
   "main": "init.js",
   "directories": {
@@ -17,6 +17,7 @@
     "ethereumjs-wallet": "^0.6.0",
     "ethjs-query": "^0.3.3",
     "expect": "^22.1.0",
+    "truffle": "^4.1.14",
     "truffle-wallet-provider": "github:crypedit/truffle-wallet-provider"
   },
   "dependencies": {
