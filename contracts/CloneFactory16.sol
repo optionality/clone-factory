@@ -29,18 +29,32 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 contract CloneFactory16 {
 
-  event CloneCreated(address indexed target, address clone);
-
   function createClone(address target) internal returns (address result) {
-    bytes memory clone = hex"3d602980600a3d3981f3363d3d373d3d3d363d6fbebebebebebebebebebebebebebebebe5af43d82803e903d91602757fd5bf3";
-    bytes20 targetBytes = bytes20(target);
-    for (uint i = 0; i < 16; i++) {
-      clone[20 + i] = targetBytes[4 + i];
-    }
+    bytes20 targetBytes = bytes20(target)<<32;
     assembly {
-      let len := mload(clone)
-      let data := add(clone, 0x20)
-      result := create(0, data, len)
+      let clone := mload(0x40)
+      mstore(clone, 0x3d602980600a3d3981f3363d3d373d3d3d363d6f000000000000000000000000)
+      mstore(add(clone, 0x14), targetBytes)
+      mstore(add(clone, 0x24), 0x5af43d82803e903d91602757fd5bf30000000000000000000000000000000000)
+      result := create(0, clone, 0x33)
+    }
+  }
+
+  function isClone(address target, address query) internal view returns (bool result) {
+    bytes20 targetBytes = bytes20(target)<<32;
+    assembly {
+      let clone := mload(0x40)
+      mstore(clone, 0x363d3d373d3d3d363d6f00000000000000000000000000000000000000000000)
+      mstore(add(clone, 0xa), targetBytes)
+      mstore(add(clone, 0x1a), 0x5af43d82803e903d91602757fd5bf30000000000000000000000000000000000)
+
+      let other := add(clone, 0x40)
+      extcodecopy(query, other, 0, 0x29)
+
+      result := and(
+        eq(mload(clone), mload(other)), 
+        eq(mload(add(clone, 0x20)), mload(add(other, 0x20)))
+      )
     }
   }
 }

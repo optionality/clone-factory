@@ -26,7 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 //solhint-disable max-line-length
 
-library ContractProbe {
+contract ContractProbe {
 
     function probe(address _addr) public view returns (bool isContract, address forwardedTo) {
         bytes memory clone = hex"363d3d373d3d3d363d73bebebebebebebebebebebebebebebebebebebebe5af43d82803e903d91602b57fd5bf3";

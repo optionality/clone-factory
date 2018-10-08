@@ -33,9 +33,9 @@ contract CloneFactory {
     bytes20 targetBytes = bytes20(target);
     assembly {
       let clone := mload(0x40)
-      mstore(clone, 0x3D602d80600A3D3981F3363d3d373d3D3D363d73000000000000000000000000)
+      mstore(clone, 0x3d602d80600a3d3981f3363d3d373d3d3d363d73000000000000000000000000)
       mstore(add(clone, 0x14), targetBytes)
-      mstore(add(clone, 0x28), 0x5AF43D82803e903d91602B57Fd5BF30000000000000000000000000000000000)
+      mstore(add(clone, 0x28), 0x5af43d82803e903d91602b57fd5bf30000000000000000000000000000000000)
       result := create(0, clone, 0x37)
     }
   }
@@ -44,12 +44,12 @@ contract CloneFactory {
     bytes20 targetBytes = bytes20(target);
     assembly {
       let clone := mload(0x40)
-      mstore(clone, 0x363d3d373d3D3D363d7300000000000000000000000000000000000000000000)
-      mstore(add(clone, 0xA), targetBytes)
-      mstore(add(clone, 0x1E), 0x5AF43D82803e903d91602B57Fd5BF30000000000000000000000000000000000)
+      mstore(clone, 0x363d3d373d3d3d363d7300000000000000000000000000000000000000000000)
+      mstore(add(clone, 0xa), targetBytes)
+      mstore(add(clone, 0x1e), 0x5af43d82803e903d91602b57fd5bf30000000000000000000000000000000000)
 
       let other := add(clone, 0x40)
-      extcodecopy(query, other, 0, 0x37)
+      extcodecopy(query, other, 0, 0x2d)
 
       result := and(
         eq(mload(clone), mload(other)), 

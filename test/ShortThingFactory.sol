@@ -23,4 +23,10 @@ contract ShortThingFactory is CloneFactory17 {
     Thing(clone).init(_name, _value);
     emit ThingCreated(clone, libraryAddress);
   }
+
+
+  function isThing(address thing) public view returns (bool) {
+    return isClone(libraryAddress, thing);
+  }
+
 }

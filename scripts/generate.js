@@ -6,6 +6,8 @@ function generate(bytes, output) {
   const template = fs.readFileSync('./templates/CloneFactory.solt');
   const cloner = clonerFactory.loader(bytes);
   const code = cloner.generate().substring(2); // eliminate the 0x
+  const contract = clonerFactory.contract(bytes);
+  const contractcode = contract.generate().substring(2);
 
   const result = eval('`' + template + '`');
 

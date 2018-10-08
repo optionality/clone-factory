@@ -29,18 +29,32 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 contract CloneFactory${bytes == 20 ? "" : bytes} {
 
-  event CloneCreated(address indexed target, address clone);
-
   function createClone(address target) internal returns (address result) {
-    bytes memory clone = hex"${code}";
-    bytes20 targetBytes = bytes20(target);
-    for (uint i = 0; i < ${bytes}; i++) {
-      clone[${cloner.labels.address + 1} + i] = targetBytes[${bytes === 20 ? "" : (20 - bytes) + " + "}i];
-    }
+    bytes20 targetBytes = bytes20(target)${bytes == 20 ? "" : "<<" + ((20 - bytes) * 8)};
     assembly {
-      let len := mload(clone)
-      let data := add(clone, 0x20)
-      result := create(0, data, len)
+      let clone := mload(0x40)
+      mstore(clone, 0x${code.substring(0, 2*(cloner.labels.address + 1)).padEnd(64, '0')})
+      mstore(add(clone, 0x${(cloner.labels.address + 1).toString(16)}), targetBytes)
+      mstore(add(clone, 0x${(cloner.labels.address + bytes + 1).toString(16)}), 0x${code.substring(2*(cloner.labels.address + bytes + 1), 2*(cloner.labels.address+bytes+1) + 30).padEnd(64, '0')})
+      result := create(0, clone, 0x${(code.length / 2).toString(16)})
+    }
+  }
+
+  function isClone(address target, address query) internal view returns (bool result) {
+    bytes20 targetBytes = bytes20(target)${bytes == 20 ? "" : "<<" + ((20 - bytes) * 8)};
+    assembly {
+      let clone := mload(0x40)
+      mstore(clone, 0x${contractcode.substring(0, 2*(contract.labels.address + 1)).padEnd(64, '0')})
+      mstore(add(clone, 0x${(contract.labels.address + 1).toString(16)}), targetBytes)
+      mstore(add(clone, 0x${(contract.labels.address + bytes + 1).toString(16)}), 0x${contractcode.substring(2*(contract.labels.address+bytes+1), 2*(contract.labels.address+bytes+1) + 30).padEnd(64, '0')})
+
+      let other := add(clone, 0x40)
+      extcodecopy(query, other, 0, 0x${(contractcode.length / 2).toString(16)})
+
+      result := and(
+        eq(mload(clone), mload(other)), 
+        eq(mload(add(clone, 0x20)), mload(add(other, 0x20)))
+      )
     }
   }
 }
