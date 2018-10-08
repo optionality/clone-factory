@@ -24,7 +24,7 @@ contract ThingFactory is CloneFactory {
     emit ThingCreated(clone, libraryAddress);
   }
 
-  function isThing(address thing) public returns (bool) {
+  function isThing(address thing) public view returns (bool) {
     return isClone(libraryAddress, thing);
   }
 }

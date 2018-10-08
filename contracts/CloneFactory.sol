@@ -29,34 +29,32 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 contract CloneFactory {
 
-  function _clone(address target) private pure returns (bytes memory clone) {
-    clone = hex"3d602d80600a3d3981f3363d3d373d3d3d363d73bebebebebebebebebebebebebebebebebebebebe5af43d82803e903d91602b57fd5bf3";
-    bytes20 targetBytes = bytes20(target);
-    for (uint i = 0; i < 20; i++) {
-      clone[20 + i] = targetBytes[i];
-    }
-    return clone;
-  }
-
   function createClone(address target) internal returns (address result) {
-    bytes memory clone = _clone(target);
+    bytes20 targetBytes = bytes20(target);
     assembly {
-      let len := mload(clone)
-      let data := add(clone, 0x20)
-      result := create(0, data, len)
+      let clone := mload(0x40)
+      mstore(clone, 0x3D602d80600A3D3981F3363d3d373d3D3D363d73000000000000000000000000)
+      mstore(add(clone, 0x14), targetBytes)
+      mstore(add(clone, 0x28), 0x5AF43D82803e903d91602B57Fd5BF30000000000000000000000000000000000)
+      result := create(0, clone, 0x37)
     }
   }
 
-  function isClone(address target, address query) internal returns (bool result) {
-    bytes memory clone = _clone(target);
-    bytes memory other;
+  function isClone(address target, address query) internal view returns (bool result) {
+    bytes20 targetBytes = bytes20(target);
     assembly {
-      let size := extcodesize(query)
-      other := mload(0x40)
-      mstore(0x40, add(other, and(add(add(size, 0x20), 0x1f), not(0x1f))))
-      mstore(other, size)
-      extcodecopy(query, add(other, 0x20), 0, size)
+      let clone := mload(0x40)
+      mstore(clone, 0x363d3d373d3D3D363d7300000000000000000000000000000000000000000000)
+      mstore(add(clone, 0xA), targetBytes)
+      mstore(add(clone, 0x1E), 0x5AF43D82803e903d91602B57Fd5BF30000000000000000000000000000000000)
+
+      let other := add(clone, 0x40)
+      extcodecopy(query, other, 0, 0x37)
+
+      result := and(
+        eq(mload(clone), mload(other)), 
+        eq(mload(add(clone, 0x20)), mload(add(other, 0x20)))
+      )
     }
-    return keccak256(other) == keccak256(clone);
   }
 }

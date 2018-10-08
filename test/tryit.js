@@ -3,6 +3,7 @@ const WalletProvider = require('truffle-wallet-provider');
 const Wallet = require('ethereumjs-wallet');
 const { promisify } = require('util');
 const Eth = require('ethjs-query');
+const BigNumber = require('bignumber.js');
 
 const ShortThingFactory = artifacts.require('./ShortThingFactory.sol');
 const ThingFactory = artifacts.require('./ThingFactory.sol');
@@ -16,6 +17,7 @@ contract('CloneFactory', (accounts) => {
   const initFactory = async (contract) => {
     var _factory = await contract.new(global.address)
     factory = {
+      address: global.address,
       cloneCost: () => {
         return _factory.onlyCreate().then(tx => tx.receipt.gasUsed)
       },
@@ -24,6 +26,9 @@ contract('CloneFactory', (accounts) => {
           .then(tx => {
             return Thing.at(tx.logs[0].args.newThingAddress);
           })
+      },
+      isThing: (addr) => {
+        return _factory.isThing(addr)
       }
     }
   };
@@ -50,6 +55,10 @@ contract('CloneFactory', (accounts) => {
             .then(value => expect(+value).toBe(233))
             .then(() => thing.name())
             .then(name => expect(name).toBe('Fred'))
+            .then(() => factory.isThing(thing.address))
+            .then(value => expect(value).toBe(true))
+            .then(() => factory.isThing(factory.address))
+            .then(value => expect(value).toBe(false))
         })
         .then(() => global.name())
         .then(value => expect(value).toBe('master'))
