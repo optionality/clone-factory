@@ -23,4 +23,8 @@ contract ThingFactory is CloneFactory {
     Thing(clone).init(_name, _value);
     emit ThingCreated(clone, libraryAddress);
   }
+
+  function isThing(address thing) public returns (bool) {
+    return isClone(libraryAddress, thing);
+  }
 }
