@@ -29,7 +29,8 @@ contract('CloneFactory', (accounts) => {
       },
       isThing: (addr) => {
         return _factory.isThing(addr)
-      }
+      },
+      incrementThings: (arr) => _factory.incrementThings(arr)
     }
   };
 
@@ -82,6 +83,11 @@ contract('CloneFactory', (accounts) => {
       expect(cost).toBe(763);
     });
 
+    it('should work many times', async () => {
+      var thing1 = await factory.createThing("Fred", "345");
+      var thing2 = await factory.createThing("Bob", "456");
+      await factory.incrementThings([thing1.address, thing2.address]);
+    })
   });
 
   describe("ShortCloneFactory", () => {

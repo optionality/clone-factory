@@ -27,4 +27,12 @@ contract ThingFactory is CloneFactory {
   function isThing(address thing) public view returns (bool) {
     return isClone(libraryAddress, thing);
   }
+
+  function incrementThings(address[] things) public returns (bool) {
+    for(uint i = 0; i < things.length; i++) {
+      require(isThing(things[i]), "Must all be things");
+      Thing(things[i]).increment();
+    }
+
+  }
 }

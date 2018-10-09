@@ -31,4 +31,8 @@ contract Thing {
     require(false, "Hello world!");
     return "Goodbye sweet world!";
   }
+
+  function increment() public {
+    value++;
+  }
 }
