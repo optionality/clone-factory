@@ -29,7 +29,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 contract ContractProbe {
 
     function probe(address _addr) public view returns (bool isContract, address forwardedTo) {
-        bytes memory clone = hex"363d3d373d3d3d363d73bebebebebebebebebebebebebebebebebebebebe5af43d82803e903d91602b57fd5bf3";
+        bytes memory clone = hex"363d3d373d3d3d363d7300000000000000000000000000000000000000005af43d82803e903d91602b57fd5bf3";
         uint size;
         bytes memory code;
 
