@@ -8,35 +8,34 @@ just delegates all calls to the master contract address.
 
 `npm install @optionality.io/clone-factory`
 
-```javascript
+```solidity
 import "./Thing.sol";
 import "@optionality.io/clone-factory/contracts/CloneFactory.sol";
 import "zeppelin-solidity/contracts/ownership/Ownable.sol";
 
-
 contract ThingFactory is Ownable, CloneFactory {
 
-  address public libraryAddress;
+  address public target;
 
   event ThingCreated(address newThingAddress);
 
-  function ThingFactory(address _libraryAddress) public {
-    libraryAddress = _libraryAddress;
+  function ThingFactory(address _target) public {
+    target = _target;
   }
 
-  function setLibraryAddress(address _libraryAddress) public onlyOwner {
-    libraryAddress = _libraryAddress;
+  function setTarget(address _target) public onlyOwner {
+    target = _target;
   }
 
   function createThing(string _name, uint _value) public onlyOwner {
-    address clone = createClone(libraryAddress);
+    address clone = createClone(target);
     Thing(clone).init(_name, _value);
     ThingCreated(clone);
   }
 }
 ```
 
-This will inexpensively create a mimimalist forwarding shim contract that will delegate all calls to the contract libraryAddress
+This will inexpensively create a mimimalist forwarding shim contract that will delegate all calls to the `target` contract.
 
 ## WARNINGS
 - Be sure that the master contract is pre-initialized.  You can usually accomplish this in your constructor as the only time the master contract constructor is called is during the master contract's creation.  Clone contracts do not call the constructor, but are initialized with an inline initialization method (as demonstrated above).

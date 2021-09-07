@@ -6,26 +6,26 @@ import "../contracts/CloneFactory.sol";
 
 contract ThingFactory is CloneFactory {
 
-  address public libraryAddress;
+  address public target;
 
-  event ThingCreated(address newThingAddress, address libraryAddress);
+  event ThingCreated(address newThingAddress, address target);
 
-  constructor (address _libraryAddress) public {
-    libraryAddress = _libraryAddress;
+  constructor (address _target) public {
+    target = _target;
   }
 
   function onlyCreate() public {
-    createClone(libraryAddress);
+    createClone(target);
   }
 
   function createThing(string _name, uint _value) public {
-    address clone = createClone(libraryAddress);
+    address clone = createClone(target);
     Thing(clone).init(_name, _value);
-    emit ThingCreated(clone, libraryAddress);
+    emit ThingCreated(clone, target);
   }
 
   function isThing(address thing) public view returns (bool) {
-    return isClone(libraryAddress, thing);
+    return isClone(target, thing);
   }
 
   function incrementThings(address[] things) public returns (bool) {
